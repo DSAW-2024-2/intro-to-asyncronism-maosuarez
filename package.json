@@ -1,0 +1,12 @@
+{
+  "name": "intro-to-asyncronism-maosuarez",
+  "version": "1.0.0",
+  "description": "- Crear una aplicación web que se comunique con la API propuesta: https://pokeapi.co/\r - Esta aplicación debe permitir consultar información de diferentes maneras, es obligatorio que de cada consulta se muestre como mínimo en la aplicación desplegada: el nombre del pokemón, su peso, su nombre y la foto del personaje.\r - Debe llamar al menos 3 endpoints diferentes, usted decide cuáles y de qué forma.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
