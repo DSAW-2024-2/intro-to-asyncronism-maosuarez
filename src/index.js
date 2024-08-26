@@ -149,7 +149,6 @@ function crearCarouselImagenes(NoImagenes, indice) {
     "<span class='carousel-control-prev-icon' aria-hidden='true'></span><span class='visually-hidden'>Previous</span>";
 
   btn2 = document.createElement("button");
-
   btn2.className = "carousel-control-next";
   btn2.type = "button";
   btn2.setAttribute("data-bs-target", "#carouselExampleFade-" + indice);
