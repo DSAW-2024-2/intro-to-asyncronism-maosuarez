@@ -59,11 +59,7 @@ header {
   padding-right: 50px;
   padding-top: 10px;
 
-  height: 65vh;
   background-color: aqua;
-
-  overflow-y: scroll;
-  scroll-behavior: smooth;
 
   .gif-carga {
     display: flex;
@@ -81,30 +77,36 @@ header {
     }
   }
 }
-@media (max-width: 1100px) {
+
+/* Para pantallas medianas (tablets) */
+@media (max-width: 1024px) {
   #container {
-    grid-template-columns: repeat(3, 1fr);
-    background-color: rgb(181, 129, 66);
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
   }
 }
-@media (max-width: 1300px) {
+
+/* Para pantallas pequeñas (móviles grandes) */
+@media (max-width: 768px) {
   #container {
-    grid-template-columns: repeat(3, 1fr);
-    background-color: bisque;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
-@media (max-width: 400px) {
+
+/* Para pantallas muy pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
   #container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* 1 columna */
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
 footer {
   display: flex;
-  position: sticky;
-  bottom: 20px;
-  width: 100vw;
-  height: 10vh;
+
+  padding: 30px;
 
   justify-content: center;
   align-items: center;

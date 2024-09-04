@@ -24,7 +24,7 @@ async function cargarPagina() {
       '<button type="button" id="btn-prev" onclick="anteriorPaginaPokemones()">Anterior</button><button type="button" id="btn-next" onclick="siguientePaginaPokemones()" >Siguiente</button>';
   }
 
-  cicloElementosPokemon();
+  await cicloElementosPokemon();
 }
 //No devuelve nada
 
