@@ -1,5 +1,35 @@
+//Link del Json a consultar
 let linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
 
+//Primera funcion
+//-> LLama a ConsultarApi (2)
+//-> LLama a cicloElementosPokemon (3)
+async function cargarPagina() {
+  let pagina = await consultarApi(linkPrincipal);
+
+  let contenido = document.getElementById("container");
+  contenido.innerHTML = "";
+
+  let btnGrupo = document.getElementById("btn-group");
+  if (pagina.next == null) {
+    btnGrupo.innerHTML =
+      '<button type="button" id="btn-prev" onclick="anteriorPaginaPokemones()">Anterior</button>';
+  }
+  if (pagina.previous == null) {
+    btnGrupo.innerHTML =
+      '<button type="button" id="btn-next" onclick="siguientePaginaPokemones()">Siguiente</button>';
+  }
+  if (pagina.previous != null && pagina.next != null) {
+    btnGrupo.innerHTML =
+      '<button type="button" id="btn-prev" onclick="anteriorPaginaPokemones()">Anterior</button><button type="button" id="btn-next" onclick="siguientePaginaPokemones()" >Siguiente</button>';
+  }
+
+  cicloElementosPokemon();
+}
+//No devuelve nada
+
+// (2) Segunda Funcion -> requiere una url
+//-> Usa fetch
 async function consultarApi(url) {
   try {
     let objeto = await fetch(url);
@@ -10,10 +40,18 @@ async function consultarApi(url) {
     console.error(error);
   }
 }
+//Devuelve un .Json
 
+// (3) Tercera Funcion
+//-> LLama a ConsultarApi
+//-> Llama a busquedaPokemon (12)
+//-> LLama a crearElementosPokemon (4)
+//-> LLamar a capitalizar (5)
+//-> LLamar a obtenerHabilidades (6)
+//-> LLamar a crearCarouselImagenes (7)
+//-> LLamar a modificarElementoPokemon (8)
 async function cicloElementosPokemon() {
-  let info = await consultarApi(linkPrincipal);
-  listaDatos = info.results;
+  listaDatos = await busquedaPokemon(linkPrincipal);
   for (let i = 0; i < listaDatos.length; i++) {
     crearElementosPokemon(i);
     let nombre = capitalizar(listaDatos[i].name);
@@ -40,19 +78,16 @@ async function cicloElementosPokemon() {
     );
   }
 }
+//No devuelve nada
 
-function capitalizar(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
+// (4) Cuarta Funcion -> Indice de la carta
+//-> Crea objetos en el Document
 function crearElementosPokemon(indice) {
-  let contenido = document.getElementById("contenido");
+  let contenido = document.getElementById("container");
 
   let divLocal = document.createElement("div");
-  divLocal.className = "card mb-3";
-  divLocal.style.maxWidth = "540px";
+  divLocal.className = "card";
+  divLocal.style.Width = "18rem";
 
   let divCarga = document.createElement("div");
   divCarga.id = "gif-carga-" + indice;
@@ -62,7 +97,7 @@ function crearElementosPokemon(indice) {
   divLinea.className = "row g-0";
 
   let divColumna_1 = document.createElement("div");
-  divColumna_1.className = "col-md-4";
+  divColumna_1.className = "col-md-4 col-first";
 
   let audio = document.createElement("audio");
   audio.className = "audio-pokemon audio-pokemon-" + indice;
@@ -103,7 +138,29 @@ function crearElementosPokemon(indice) {
 
   contenido.appendChild(divLocal);
 }
+//No devuelve nada
 
+// (5) Quinta Funcion -> str para capitalizar
+function capitalizar(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+//Devuelve String primera en Mayuscula
+
+// (6) Sexta Funcion -> lista con las habilidades
+function obtenerHabilidades(lista) {
+  let texto = "Algunas habilidades:<br/>";
+
+  for (let habilidad of lista) {
+    texto += `- ${habilidad.ability.name}<br/>`;
+  }
+
+  return texto;
+}
+//Devuelve String con las habilidades de la lista
+
+// (7) Septima Funcion -> (Objeto que contiene url de las imagenes , indice de las imagenes )
 function crearCarouselImagenes(NoImagenes, indice) {
   let divCarousel = document.createElement("div");
   divCarousel.className = "carousel slide carousel-fade";
@@ -161,7 +218,10 @@ function crearCarouselImagenes(NoImagenes, indice) {
 
   return divCarousel;
 }
+// Devuelve un div con el carrousel de imagen
 
+// (8) Octava Funcion -> Informacion en general ( nombre, carrousel, audio, descripcion, texto adicional, indice de la carta)
+//-> obtenerObjetosHtml (9)
 function modificarElementoPokemon(
   nombre,
   carouselimagen,
@@ -179,7 +239,9 @@ function modificarElementoPokemon(
   objDescripcion.innerHTML = descripcion;
   objAdicional.textContent = adicional;
 }
+//No devuelve nada
 
+// (9) Novena Funcion -> indice de la carta
 function obtenerObjetosHtml(indice) {
   let elementos = document.querySelectorAll(".card");
   let elementoParticular = elementos[indice];
@@ -192,50 +254,71 @@ function obtenerObjetosHtml(indice) {
 
   return [objTitulo, objImagen, objAudio, objDescripcion, objAdicional];
 }
+// Devuelve un array con los objetos html de la carta
 
+// (10) decima Funcion -> siguiente pagina
+//-> consultarApi
+//-> cargarPagina
 async function siguientePaginaPokemones() {
   let pagina = await consultarApi(linkPrincipal);
   linkPrincipal = pagina.next;
   cargarPagina();
 }
+// No devuelve nada
 
+// (11) onceaba Funcion -> pagina anterior
+//-> consultarApi
+//-> cargarPagina
 async function anteriorPaginaPokemones() {
   let pagina = await consultarApi(linkPrincipal);
   linkPrincipal = pagina.previous;
   cargarPagina();
 }
+// No devuelve nada
 
-async function cargarPagina() {
-  let pagina = await consultarApi(linkPrincipal);
+// (12) doceaba Funcion -> LinkPrincipal
+async function busquedaPokemon(linkParametro) {
+  textoBusqueda = document.getElementById("pokemon-input").value;
+  listaPokemonesCrear = [];
+  linkSimulado = linkParametro;
 
-  let contenido = document.getElementById("contenido");
-  contenido.innerHTML = "";
-
-  let btnGrupo = document.getElementById("btn-grupo");
-  if (pagina.next == null) {
-    btnGrupo.innerHTML =
-      '<button type="button" id="btn-prev" onclick="anteriorPaginaPokemones()" class="btn btn-light">Anterior</button>';
+  let divCarga = document.createElement("div");
+  divCarga.id = "gif-carga";
+  divCarga.innerHTML = "<div class='lds-ripple'><div></div><div></div></div>";
+  document.getElementById("container").appendChild(divCarga);
+  if (textoBusqueda != "") {
+    while (listaPokemonesCrear.length < 20) {
+      let info = await consultarApi(linkSimulado);
+      for (let posibleObj of info.results) {
+        if (
+          posibleObj.name.toLowerCase().includes(textoBusqueda.toLowerCase())
+        ) {
+          listaPokemonesCrear.push(posibleObj);
+        }
+      }
+      if (info.next) {
+        linkSimulado = info.next;
+      } else {
+        break;
+      }
+    }
+    document.getElementById("container").innerHTML = "";
+    return listaPokemonesCrear;
+  } else {
+    let info = await consultarApi(linkParametro);
+    document.getElementById("container").innerHTML = "";
+    return info.results;
   }
-  if (pagina.previous == null) {
-    btnGrupo.innerHTML =
-      '<button type="button" id="btn-next" onclick="siguientePaginaPokemones()" class="btn btn-light">Siguiente</button>';
-  }
-  if (pagina.previous != null && pagina.next != null) {
-    btnGrupo.innerHTML =
-      '<button type="button" id="btn-prev" onclick="anteriorPaginaPokemones()" class="btn btn-light">Anterior</button><button type="button" id="btn-next" onclick="siguientePaginaPokemones()" class="btn btn-light">Siguiente</button>';
-  }
-
-  cicloElementosPokemon();
 }
+// Devuelve un array con los objetos json de los pokemones buscados
 
-function obtenerHabilidades(lista) {
-  let texto = "Algunas habilidades:<br/>";
+//Add Event Listener
+document.getElementById("pokemon-input").addEventListener("change", () => {
+  cargarPagina();
+});
 
-  for (let habilidad of lista) {
-    texto += `- ${habilidad.ability.name}<br/>`;
-  }
-
-  return texto;
-}
+document.getElementById("search-btn").addEventListener("click", () => {
+  cargarPagina();
+});
 
 cargarPagina();
