@@ -1,5 +1,6 @@
 //Link del Json a consultar
 let linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
+let listaDatos;
 
 //Primera funcion
 //-> LLama a ConsultarApi (2)
@@ -87,6 +88,7 @@ function crearElementosPokemon(indice) {
 
   let divLocal = document.createElement("div");
   divLocal.className = "card";
+  divLocal.value = "des-active";
   divLocal.style.Width = "18rem";
 
   let divCarga = document.createElement("div");
@@ -137,6 +139,56 @@ function crearElementosPokemon(indice) {
   divLocal.appendChild(divLinea);
 
   contenido.appendChild(divLocal);
+
+  //Agregar algunos listeners para que sea mas interactivo
+  divLocal.addEventListener("mouseover", () => {
+    divLocal.style.cursor = "pointer";
+  });
+  divLocal.addEventListener("mouseleave", (event) => {
+    event.currentTarget.value = "des-active";
+    event.currentTarget.querySelector(".card-text").style.display = "none";
+    event.currentTarget.querySelector(".text-body-secondary").style.display =
+      "none";
+  });
+
+  divLocal.addEventListener("click", (event) => {
+    if (event.currentTarget.value == "des-active") {
+      if (
+        event.target.className != "d-block w-100" &&
+        event.target.className != "carousel-control-next-icon" &&
+        event.target.className != "carousel-control-prev-icon"
+      ) {
+        event.currentTarget.value = "active";
+        event.currentTarget.querySelector(".card-text").style.display = "block";
+        event.currentTarget.querySelector(
+          ".text-body-secondary"
+        ).style.display = "block";
+      }
+    } else {
+      let pokemon = event.currentTarget
+        .querySelector(".card-title")
+        .textContent.toLowerCase();
+      for (let i of listaDatos) {
+        if (i.name.toLowerCase() == pokemon) {
+          localStorage.setItem("url", i.url);
+          localStorage.setItem("nombre", i.name);
+          localStorage.setItem("codigo", event.currentTarget.innerHTML);
+        }
+      }
+      if (
+        event.target.className != "d-block w-100" &&
+        event.target.className != "carousel-control-next-icon" &&
+        event.target.className != "carousel-control-prev-icon"
+      ) {
+        event.currentTarget.value == "des-active";
+        event.currentTarget.querySelector(".card-text").style.display = "none";
+        event.currentTarget.querySelector(
+          ".text-body-secondary"
+        ).style.display = "none";
+        window.location.href = "pokemon.html";
+      }
+    }
+  });
 }
 //No devuelve nada
 
