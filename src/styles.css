@@ -211,3 +211,38 @@ footer {
     opacity: 0;
   }
 }
+
+.window-notice {
+  background: rgba(33, 41, 52, 0.85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  display: none;
+  position: fixed;
+  z-index: 999;
+  justify-content: center;
+
+  header {
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+
+    margin: 10px;
+    margin-right: 0px;
+  }
+
+  .container-aux {
+    padding: 30px;
+  }
+
+  .card {
+    max-width: 200px;
+
+    .col-md-4 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

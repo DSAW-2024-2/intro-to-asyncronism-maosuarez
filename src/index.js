@@ -157,7 +157,7 @@ function crearElementosPokemon(indice) {
       event.target.className != "carousel-control-next-icon" &&
       event.target.className != "carousel-control-prev-icon"
     ) {
-      window.location.href = "pokemon.html";
+      pantallaFlotante();
     }
   });
 
@@ -366,6 +366,23 @@ async function datosImportantes(linkPokemon) {
 }
 // Devuelve un array con los datos importantes del pokemon
 
+//(14) Catorceaba Funcion
+function pantallaFlotante() {
+  document.querySelector(".window-notice").style.display = "flex";
+
+  //Elementos que se mandan de la otra pagina
+  let nombre = localStorage.getItem("nombre");
+  let carousel = localStorage.getItem("carousel");
+  let texto1 = localStorage.getItem("texto1");
+  let texto2 = localStorage.getItem("texto2");
+
+  document.querySelector(".carousel-float").innerHTML = carousel;
+  document.querySelector(".card-title-float").textContent = nombre;
+  document.querySelector(".text1-float").innerHTML = texto1;
+
+  document.querySelector(".text-body-secondary-float").innerHTML = texto2;
+}
+
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
@@ -373,6 +390,10 @@ document.getElementById("pokemon-input").addEventListener("change", () => {
 
 document.getElementById("search-btn").addEventListener("click", () => {
   cargarPagina();
+});
+document.querySelector(".btn-close").addEventListener("click", () => {
+  localStorage.clear();
+  document.querySelector(".window-notice").style.display = "none";
 });
 
 cargarPagina();
