@@ -62,21 +62,13 @@ async function cicloElementosPokemon() {
     let habilidades = objhabilidades.abilities;
 
     let descripcion = obtenerHabilidades(habilidades);
-    let adicional = "Experiencia base = " + objhabilidades.base_experience;
 
     let objImagenes = await consultarApi(objhabilidades.forms[0].url);
     let carouselimage = crearCarouselImagenes(objImagenes.sprites, i);
 
     document.getElementById("gif-carga-" + i).style.display = "none";
 
-    modificarElementoPokemon(
-      nombre,
-      carouselimage,
-      audio,
-      descripcion,
-      adicional,
-      i
-    );
+    modificarElementoPokemon(nombre, carouselimage, audio, descripcion, i);
   }
 }
 //No devuelve nada
@@ -117,19 +109,10 @@ function crearElementosPokemon(indice) {
   textoCarta_1.id = "card-text-1";
   textoCarta_1.className = "card-text parrafo";
 
-  let textoCarta_2 = document.createElement("p");
-  textoCarta_2.id = "card-text-2";
-  textoCarta_2.className = "card-text";
-
-  let textoPequeño = document.createElement("small");
-  textoPequeño.className = "text-body-secondary";
-
   divLocal.appendChild(divCarga);
 
-  textoCarta_2.appendChild(textoPequeño);
   divCuerpo.appendChild(tituloCarta);
   divCuerpo.appendChild(textoCarta_1);
-  divCuerpo.appendChild(textoCarta_2);
   divColumna_2.appendChild(divCuerpo);
 
   divColumna_1.appendChild(audio);
@@ -147,11 +130,9 @@ function crearElementosPokemon(indice) {
 
   divLocal.addEventListener("mouseleave", (event) => {
     event.currentTarget.querySelector(".card-text").style.display = "none";
-    event.currentTarget.querySelector(".text-body-secondary").style.display =
-      "none";
   });
 
-  divLocal.addEventListener("dblclick", (event) => {
+  divLocal.addEventListener("dblclick", async (event) => {
     let pokemon = event.currentTarget
       .querySelector(".card-title")
       .textContent.toLowerCase();
@@ -167,10 +148,8 @@ function crearElementosPokemon(indice) {
           "texto1",
           event.currentTarget.querySelector("#card-text-1").innerHTML
         );
-        localStorage.setItem(
-          "texto2",
-          event.currentTarget.querySelector("#card-text-2").innerHTML
-        );
+        let respuesta = await datosImportantes(i.url);
+        localStorage.setItem("texto2", respuesta);
       }
     }
     if (
@@ -178,9 +157,6 @@ function crearElementosPokemon(indice) {
       event.target.className != "carousel-control-next-icon" &&
       event.target.className != "carousel-control-prev-icon"
     ) {
-      event.currentTarget.querySelector(".card-text").style.display = "none";
-      event.currentTarget.querySelector(".text-body-secondary").style.display =
-        "none";
       window.location.href = "pokemon.html";
     }
   });
@@ -192,8 +168,6 @@ function crearElementosPokemon(indice) {
       event.target.className != "carousel-control-prev-icon"
     ) {
       event.currentTarget.querySelector(".card-text").style.display = "block";
-      event.currentTarget.querySelector(".text-body-secondary").style.display =
-        "block";
     }
   });
 }
@@ -279,24 +253,22 @@ function crearCarouselImagenes(NoImagenes, indice) {
 }
 // Devuelve un div con el carrousel de imagen
 
-// (8) Octava Funcion -> Informacion en general ( nombre, carrousel, audio, descripcion, texto adicional, indice de la carta)
+// (8) Octava Funcion -> Informacion en general ( nombre, carrousel, audio, descripcion, indice de la carta)
 //-> obtenerObjetosHtml (9)
 function modificarElementoPokemon(
   nombre,
   carouselimagen,
   audio,
   descripcion,
-  adicional,
   indice
 ) {
-  let [objTitulo, objImagen, objAudio, objDescripcion, objAdicional] =
+  let [objTitulo, objImagen, objAudio, objDescripcion] =
     obtenerObjetosHtml(indice);
 
   objTitulo.textContent = nombre;
   objImagen.appendChild(carouselimagen);
   objAudio.src = audio;
   objDescripcion.innerHTML = descripcion;
-  objAdicional.textContent = adicional;
 }
 //No devuelve nada
 
@@ -309,9 +281,8 @@ function obtenerObjetosHtml(indice) {
   let objImagen = elementoParticular.querySelector(".col-md-4");
   let objAudio = elementoParticular.querySelector(".audio-pokemon");
   let objDescripcion = elementoParticular.querySelector(".parrafo");
-  let objAdicional = elementoParticular.querySelector(".text-body-secondary");
 
-  return [objTitulo, objImagen, objAudio, objDescripcion, objAdicional];
+  return [objTitulo, objImagen, objAudio, objDescripcion];
 }
 // Devuelve un array con los objetos html de la carta
 
@@ -370,6 +341,30 @@ async function busquedaPokemon(linkParametro) {
   }
 }
 // Devuelve un array con los objetos json de los pokemones buscados
+
+// (13) Treceaba Funcion -> link de habilidades del pokemon
+// consultarApi
+async function datosImportantes(linkPokemon) {
+  let datos = await consultarApi(linkPokemon);
+
+  texto = [
+    "Peso: " + datos.weight,
+    "Altura: " + datos.height,
+    "Experiencia Base: " + datos.base_experience,
+    "Id: " + datos.id,
+  ];
+  let respuesta = document.createElement("div");
+  for (let carac of texto) {
+    let peque = document.createElement("small");
+    peque.textContent = carac;
+
+    respuesta.appendChild(peque);
+    respuesta.appendChild(document.createElement("br"));
+  }
+
+  return respuesta.innerHTML;
+}
+// Devuelve un array con los datos importantes del pokemon
 
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {

@@ -9,6 +9,7 @@ let texto2 = localStorage.getItem("texto2");
 document.querySelector(".carousel").innerHTML = carousel;
 document.querySelector(".card-title").textContent = nombre;
 document.querySelector(".text1").innerHTML = texto1;
+
 document.querySelector(".text-body-secondary").innerHTML = texto2;
 
 document.querySelector(".btn-close").addEventListener("click", () => {
