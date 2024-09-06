@@ -88,7 +88,6 @@ function crearElementosPokemon(indice) {
 
   let divLocal = document.createElement("div");
   divLocal.className = "card";
-  divLocal.value = "des-active";
   divLocal.style.Width = "18rem";
 
   let divCarga = document.createElement("div");
@@ -144,49 +143,45 @@ function crearElementosPokemon(indice) {
   divLocal.addEventListener("mouseover", () => {
     divLocal.style.cursor = "pointer";
   });
+
   divLocal.addEventListener("mouseleave", (event) => {
-    event.currentTarget.value = "des-active";
     event.currentTarget.querySelector(".card-text").style.display = "none";
     event.currentTarget.querySelector(".text-body-secondary").style.display =
       "none";
   });
 
+  divLocal.addEventListener("dblclick", (event) => {
+    let pokemon = event.currentTarget
+      .querySelector(".card-title")
+      .textContent.toLowerCase();
+    for (let i of listaDatos) {
+      if (i.name.toLowerCase() == pokemon) {
+        localStorage.setItem("url", i.url);
+        localStorage.setItem("nombre", i.name);
+        localStorage.setItem("codigo", event.currentTarget.innerHTML);
+      }
+    }
+    if (
+      event.target.className != "d-block w-100" &&
+      event.target.className != "carousel-control-next-icon" &&
+      event.target.className != "carousel-control-prev-icon"
+    ) {
+      event.currentTarget.querySelector(".card-text").style.display = "none";
+      event.currentTarget.querySelector(".text-body-secondary").style.display =
+        "none";
+      window.location.href = "pokemon.html";
+    }
+  });
+
   divLocal.addEventListener("click", (event) => {
-    if (event.currentTarget.value == "des-active") {
-      if (
-        event.target.className != "d-block w-100" &&
-        event.target.className != "carousel-control-next-icon" &&
-        event.target.className != "carousel-control-prev-icon"
-      ) {
-        event.currentTarget.value = "active";
-        event.currentTarget.querySelector(".card-text").style.display = "block";
-        event.currentTarget.querySelector(
-          ".text-body-secondary"
-        ).style.display = "block";
-      }
-    } else {
-      let pokemon = event.currentTarget
-        .querySelector(".card-title")
-        .textContent.toLowerCase();
-      for (let i of listaDatos) {
-        if (i.name.toLowerCase() == pokemon) {
-          localStorage.setItem("url", i.url);
-          localStorage.setItem("nombre", i.name);
-          localStorage.setItem("codigo", event.currentTarget.innerHTML);
-        }
-      }
-      if (
-        event.target.className != "d-block w-100" &&
-        event.target.className != "carousel-control-next-icon" &&
-        event.target.className != "carousel-control-prev-icon"
-      ) {
-        event.currentTarget.value == "des-active";
-        event.currentTarget.querySelector(".card-text").style.display = "none";
-        event.currentTarget.querySelector(
-          ".text-body-secondary"
-        ).style.display = "none";
-        window.location.href = "pokemon.html";
-      }
+    if (
+      event.target.className != "d-block w-100" &&
+      event.target.className != "carousel-control-next-icon" &&
+      event.target.className != "carousel-control-prev-icon"
+    ) {
+      event.currentTarget.querySelector(".card-text").style.display = "block";
+      event.currentTarget.querySelector(".text-body-secondary").style.display =
+        "block";
     }
   });
 }
