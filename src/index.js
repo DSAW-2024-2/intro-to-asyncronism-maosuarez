@@ -92,6 +92,7 @@ function crearElementosPokemon(indice) {
 
   let divCarga = document.createElement("div");
   divCarga.id = "gif-carga-" + indice;
+  divCarga.className = "gif-carga";
   divCarga.innerHTML = "<div class='lds-ripple'><div></div><div></div></div>";
 
   let divLinea = document.createElement("div");
@@ -157,8 +158,19 @@ function crearElementosPokemon(indice) {
     for (let i of listaDatos) {
       if (i.name.toLowerCase() == pokemon) {
         localStorage.setItem("url", i.url);
-        localStorage.setItem("nombre", i.name);
-        localStorage.setItem("codigo", event.currentTarget.innerHTML);
+        localStorage.setItem("nombre", capitalizar(i.name));
+        localStorage.setItem(
+          "carousel",
+          event.currentTarget.querySelector(".col-md-4").innerHTML
+        );
+        localStorage.setItem(
+          "texto1",
+          event.currentTarget.querySelector("#card-text-1").innerHTML
+        );
+        localStorage.setItem(
+          "texto2",
+          event.currentTarget.querySelector("#card-text-2").innerHTML
+        );
       }
     }
     if (
