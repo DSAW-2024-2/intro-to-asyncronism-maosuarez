@@ -109,10 +109,16 @@ function crearElementosPokemon(indice) {
   textoCarta_1.id = "card-text-1";
   textoCarta_1.className = "card-text parrafo";
 
+  let btnAux = document.createElement("button");
+  btnAux.className = "btn-aux-more";
+  btnAux.textContent = "Ver mas...";
+
   divLocal.appendChild(divCarga);
 
   divCuerpo.appendChild(tituloCarta);
   divCuerpo.appendChild(textoCarta_1);
+
+  divCuerpo.appendChild(btnAux);
   divColumna_2.appendChild(divCuerpo);
 
   divColumna_1.appendChild(audio);
@@ -130,6 +136,16 @@ function crearElementosPokemon(indice) {
 
   divLocal.addEventListener("mouseleave", (event) => {
     event.currentTarget.querySelector(".card-text").style.display = "none";
+    event.currentTarget.querySelector(".btn-aux-more").style.display = "none";
+  });
+
+  btnAux.addEventListener("click", (event) => {
+    let lugar = event.target.parentNode.parentNode.parentNode.parentNode;
+    let dblClickEvent = new MouseEvent("dblclick", {
+      bubbles: true,
+      cancelable: true,
+    });
+    lugar.dispatchEvent(dblClickEvent);
   });
 
   divLocal.addEventListener("dblclick", async (event) => {
@@ -167,6 +183,10 @@ function crearElementosPokemon(indice) {
       event.target.className != "carousel-control-next-icon" &&
       event.target.className != "carousel-control-prev-icon"
     ) {
+      if (isMobile()) {
+        event.currentTarget.querySelector(".btn-aux-more").style.display =
+          "block";
+      }
       event.currentTarget.querySelector(".card-text").style.display = "block";
     }
   });
@@ -382,6 +402,19 @@ function pantallaFlotante() {
 
   document.querySelector(".text-body-secondary-float").innerHTML = texto2;
 }
+
+//(15) quinceaba FUncion
+function isMobile() {
+  return (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/webOS/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    navigator.userAgent.match(/iPod/i) ||
+    navigator.userAgent.match(/iPad/i) ||
+    navigator.userAgent.match(/BlackBerry/i)
+  );
+}
+//Devuelve un booleano
 
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
