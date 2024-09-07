@@ -260,6 +260,8 @@ footer {
   }
 }
 
+/* Para Diferentes tamaños en Computador */
+
 /* Para pantallas medianas (tablets) */
 @media (max-width: 1024px) {
   #container {
@@ -290,30 +292,10 @@ footer {
     }
   }
 }
-@media only screen and (min-device-width: 430px) and (max-device-width: 736px) {
-  /* inserta aquí tu código */
-  #container {
-    grid-template-columns: repeat(2, 1fr); /* 1 columna */
-    padding-left: 10px;
-    padding-right: 10px;
 
-    .card {
-      display: flex;
-      justify-content: center;
-      .row {
-        display: flex;
-        flex-direction: column;
-      }
-      .card-title {
-        font-size: 2rem;
-      }
-    }
-    .carousel {
-      min-width: 200px;
-    }
-  }
-}
-@media only screen and (max-device-width: 430px) {
+/* Para diferentes dispositivos */
+
+@media only screen and (max-device-width: 920px) {
   body {
     display: flex;
     flex-direction: column;
@@ -342,7 +324,6 @@ footer {
     }
   }
   #container {
-    grid-template-columns: 1fr; /* 1 columna */
     padding-top: 15px;
     padding-bottom: 50px;
     width: 100%;
@@ -354,19 +335,6 @@ footer {
       .row {
         display: flex;
         flex-direction: column;
-      }
-      .card-title {
-        margin: 10px;
-        font-size: 4rem;
-      }
-
-      .card-text {
-        font-size: 2rem;
-      }
-
-      .btn-aux-more {
-        margin: 15px;
-        font-size: 2.5rem;
       }
     }
     .carousel {
@@ -426,6 +394,66 @@ footer {
       width: 45vw;
       height: 100px;
       font-size: 3.5rem;
+    }
+  }
+}
+
+@media only screen and (min-device-width: 430px) and (max-device-width: 920px) {
+  header {
+    margin-bottom: 10px;
+    .search {
+      .search-input {
+        width: 70vw;
+      }
+      .search-btn {
+        width: 15vw;
+      }
+    }
+  }
+  #container {
+    grid-template-columns: repeat(2, 1fr);
+
+    .card {
+      .card-title {
+        margin: 10px;
+        font-size: 3rem;
+      }
+
+      .card-text {
+        font-size: 2rem;
+      }
+
+      .btn-aux-more {
+        margin: 15px;
+        font-size: 2.5rem;
+      }
+    }
+  }
+  #window-notice {
+    main {
+      width: 80%;
+      margin: 10px;
+    }
+  }
+}
+@media only screen and (max-device-width: 430px) {
+  #container {
+    grid-template-columns: 1fr;
+
+    .card {
+      .card-title {
+        margin: 10px;
+        font-size: 4rem;
+      }
+
+      .card-text {
+        font-size: 2rem;
+      }
+
+      .btn-aux-more {
+        margin: 15px;
+        font-size: 2.5rem;
+      }
     }
   }
 }
