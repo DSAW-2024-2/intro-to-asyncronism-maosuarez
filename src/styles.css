@@ -139,86 +139,6 @@ header {
   }
 }
 
-/* Para pantallas medianas (tablets) */
-@media (max-width: 1024px) {
-  #container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-  }
-}
-
-/* Para pantallas pequeñas (móviles grandes) */
-@media only screen and (min-width: 440px) and (max-width: 768px) {
-  #container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-    padding-left: 20px;
-    padding-right: 20px;
-    .carousel {
-      min-width: 150px;
-    }
-  }
-}
-
-/* Para pantallas muy pequeñas (móviles pequeños) */
-@media only screen and (max-width: 440px) {
-  #container {
-    grid-template-columns: 1fr; /* 1 columna */
-    padding-left: 10px;
-    padding-right: 10px;
-    .carousel {
-      min-width: 200px;
-    }
-  }
-}
-@media only screen and (min-device-width: 430px) and (max-device-width: 736px) {
-  /* inserta aquí tu código */
-  #container {
-    grid-template-columns: repeat(2, 1fr); /* 1 columna */
-    padding-left: 10px;
-    padding-right: 10px;
-
-    .card {
-      display: flex;
-      justify-content: center;
-      .row {
-        display: flex;
-        flex-direction: column;
-      }
-      .card-title {
-        font-size: 2rem;
-      }
-    }
-    .carousel {
-      min-width: 200px;
-    }
-  }
-}
-@media only screen and (max-device-width: 430px) {
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #container {
-    grid-template-columns: 1fr; /* 1 columna */
-    padding-bottom: 50px;
-    .card {
-      display: flex;
-      justify-content: center;
-      min-width: 340px;
-      .row {
-        display: flex;
-        flex-direction: column;
-      }
-      .card-title {
-        font-size: 2rem;
-      }
-    }
-    .carousel {
-      min-width: 300px;
-    }
-  }
-}
-
 footer {
   display: flex;
 
@@ -336,6 +256,176 @@ footer {
       small {
         font-size: 1.5rem;
       }
+    }
+  }
+}
+
+/* Para pantallas medianas (tablets) */
+@media (max-width: 1024px) {
+  #container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  }
+}
+
+/* Para pantallas pequeñas (móviles grandes) */
+@media only screen and (min-width: 440px) and (max-width: 768px) {
+  #container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    padding-left: 20px;
+    padding-right: 20px;
+    .carousel {
+      min-width: 150px;
+    }
+  }
+}
+
+/* Para pantallas muy pequeñas (móviles pequeños) */
+@media only screen and (max-width: 440px) {
+  #container {
+    grid-template-columns: 1fr; /* 1 columna */
+    padding-left: 10px;
+    padding-right: 10px;
+    .carousel {
+      min-width: 200px;
+    }
+  }
+}
+@media only screen and (min-device-width: 430px) and (max-device-width: 736px) {
+  /* inserta aquí tu código */
+  #container {
+    grid-template-columns: repeat(2, 1fr); /* 1 columna */
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .card {
+      display: flex;
+      justify-content: center;
+      .row {
+        display: flex;
+        flex-direction: column;
+      }
+      .card-title {
+        font-size: 2rem;
+      }
+    }
+    .carousel {
+      min-width: 200px;
+    }
+  }
+}
+@media only screen and (max-device-width: 430px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header {
+      height: 200px;
+
+      h1 {
+        font-size: 5rem;
+      }
+
+      .search {
+        .search-input {
+          width: 78vw;
+          height: 80px;
+
+          font-size: 3rem;
+        }
+        .search-btn {
+          width: 20vw;
+          height: 80px;
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+  #container {
+    grid-template-columns: 1fr; /* 1 columna */
+    padding-top: 15px;
+    padding-bottom: 50px;
+    width: 100%;
+    .card {
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+      min-width: 340px;
+      .row {
+        display: flex;
+        flex-direction: column;
+      }
+      .card-title {
+        margin: 10px;
+        font-size: 4rem;
+      }
+
+      .card-text {
+        font-size: 2rem;
+      }
+
+      .btn-aux-more {
+        margin: 15px;
+        font-size: 2.5rem;
+      }
+    }
+    .carousel {
+      min-width: 340px;
+    }
+  }
+
+  #window-notice {
+    header {
+      height: auto;
+      .btn-close {
+        font-size: 35px;
+      }
+    }
+    main {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .card {
+      width: 90%;
+
+      .row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .carousel {
+        min-width: 400px;
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+          display: none;
+        }
+      }
+    }
+
+    .card-body {
+      .card-title,
+      .card-title-float {
+        font-size: 4rem;
+      }
+      .card-text {
+        font-size: 2.5rem;
+      }
+      small {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  footer {
+    button {
+      width: 45vw;
+      height: 100px;
+      font-size: 3.5rem;
     }
   }
 }
