@@ -137,6 +137,8 @@ function crearElementosPokemon(indice) {
   divLocal.addEventListener("mouseleave", (event) => {
     event.currentTarget.querySelector(".card-text").style.display = "none";
     event.currentTarget.querySelector(".btn-aux-more").style.display = "none";
+
+    event.currentTarget.classList.remove("div-local-seleccionado");
   });
 
   btnAux.addEventListener("click", (event) => {
@@ -188,6 +190,8 @@ function crearElementosPokemon(indice) {
           "block";
       }
       event.currentTarget.querySelector(".card-text").style.display = "block";
+      event.currentTarget.classList.add("div-local-seleccionado");
+      autoCarousel();
     }
   });
 }
@@ -264,7 +268,7 @@ function crearCarouselImagenes(NoImagenes, indice) {
   btn2.setAttribute("data-bs-target", "#carouselExampleFade-" + indice);
   btn2.setAttribute("data-bs-slide", "next");
   btn2.innerHTML =
-    "<span class='carousel-control-next-icon' aria-hidden='true'></span><span class='visually-hidden'>Previous</span>";
+    "<span class='carousel-control-next-icon' aria-hidden='true'></span><span class='visually-hidden'>Next</span>";
 
   divCarousel.appendChild(btn1);
   divCarousel.appendChild(btn2);
@@ -402,6 +406,7 @@ function pantallaFlotante() {
 
   document.querySelector(".text-body-secondary-float").innerHTML = texto2;
 }
+//No devuelve nada
 
 //(15) quinceaba FUncion
 function isMobile() {
@@ -416,6 +421,26 @@ function isMobile() {
 }
 //Devuelve un booleano
 
+// (16) Dieciseisava Funcion
+function autoCarousel() {
+  try {
+    let divLocal = document.querySelector(".div-local-seleccionado");
+
+    if (isMobile()) {
+      let clickEvent = new MouseEvent("click");
+      divLocal
+        .querySelector(".carousel-control-next")
+        .dispatchEvent(clickEvent);
+
+      setTimeout(() => {
+        autoCarousel();
+      }, 3000);
+    }
+  } catch (error) {
+    console.error("Error basico" + error);
+  }
+}
+
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
@@ -424,6 +449,7 @@ document.getElementById("pokemon-input").addEventListener("change", () => {
 document.getElementById("search-btn").addEventListener("click", () => {
   cargarPagina();
 });
+
 document.querySelector(".btn-close").addEventListener("click", () => {
   localStorage.clear();
   document.querySelector(".window-notice").style.display = "none";

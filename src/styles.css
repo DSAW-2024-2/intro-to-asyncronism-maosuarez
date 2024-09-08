@@ -79,15 +79,6 @@ header {
       align-items: center;
     }
 
-    .carousel {
-      .carousel-control-prev {
-        display: none;
-      }
-      .carousel-control-next {
-        display: none;
-      }
-    }
-
     .col-first {
       display: flex;
       align-items: center;
