@@ -469,6 +469,55 @@ function corregirCarousel() {
 }
 // Devuelve un div que es el carousel corregido
 
+function informativos() {
+  let divInfo = document.querySelector(".first-guide");
+  divInfo.style.display = "flex";
+
+  listaAcciones = [
+    {
+      accion: "Click Aqui Para",
+      texto: "Visualizar mas caracteristicas de los pokemones",
+      target: ".card",
+    },
+    {
+      accion: "Click Aqui Para",
+      texto: "Escuchar los ruidos que hacen los pokemones",
+      target: ".col-first",
+    },
+    {
+      accion: "Doble Click Aqui Para",
+      texto: "Desplegar una targeta unica del Pokemon",
+      target: ".card",
+    },
+  ];
+  try {
+    let index = localStorage.getItem("index");
+    let objAccion = listaAcciones[index];
+    console.log(objAccion.accion);
+    divInfo.querySelector(".text-guide-title").textContent = objAccion.accion;
+    divInfo.querySelector(".text-guide-info").textContent = objAccion.texto;
+
+    document.querySelector(objAccion.target).classList.add("mostrar-zindex");
+  } catch (error) {
+    divInfo.style.display = "none";
+    console.error("Error informativos " + error);
+  }
+
+  try {
+    let objAnterior = listaAcciones[index - 1];
+    document
+      .querySelector(objAnterior.target)
+      .classList.remove("mostrar-zindex");
+  } catch (error) {
+    console.error("No hay accion anterior");
+  }
+}
+
+function primeraVezPagina() {
+  localStorage.setItem("index", 0);
+  informativos();
+}
+
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
@@ -486,4 +535,11 @@ document.querySelector(".btn-close").addEventListener("click", () => {
     .classList.remove("div-local-seleccionado");
 });
 
+document.querySelector("#btn-guide-next").addEventListener("click", () => {
+  let index = localStorage.getItem("index");
+  localStorage.setItem("index", Number(index) + 1);
+  informativos();
+});
+
+primeraVezPagina();
 cargarPagina();
