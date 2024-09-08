@@ -541,5 +541,5 @@ document.querySelector("#btn-guide-next").addEventListener("click", () => {
   informativos();
 });
 
-primeraVezPagina();
+//primeraVezPagina();
 cargarPagina();
