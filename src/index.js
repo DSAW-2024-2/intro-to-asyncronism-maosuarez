@@ -175,6 +175,8 @@ function crearElementosPokemon(indice) {
       event.target.className != "carousel-control-next-icon" &&
       event.target.className != "carousel-control-prev-icon"
     ) {
+      let div = document.querySelector(".div-local-seleccionado");
+      div.classList.remove("div-local-seleccionado");
       pantallaFlotante();
     }
   });
@@ -396,7 +398,8 @@ function pantallaFlotante() {
 
   //Elementos que se mandan de la otra pagina
   let nombre = localStorage.getItem("nombre");
-  let carousel = localStorage.getItem("carousel");
+
+  let carousel = corregirCarousel();
   let texto1 = localStorage.getItem("texto1");
   let texto2 = localStorage.getItem("texto2");
 
@@ -405,6 +408,14 @@ function pantallaFlotante() {
   document.querySelector(".text1-float").innerHTML = texto1;
 
   document.querySelector(".text-body-secondary-float").innerHTML = texto2;
+
+  let div = document.querySelector(".window-notice");
+  div.querySelector(".carousel-inner").addEventListener("click", () => {
+    div.querySelector(".audio-pokemon").play();
+  });
+  div.classList.add("div-local-seleccionado");
+
+  autoCarousel();
 }
 //No devuelve nada
 
@@ -441,6 +452,23 @@ function autoCarousel() {
   }
 }
 
+// (17)
+function corregirCarousel() {
+  let div = document.createElement("div");
+  console.log(localStorage.getItem("carousel"));
+  div.innerHTML = localStorage.getItem("carousel");
+  let divCarousel = div.querySelector(".carousel-fade");
+  let btn1 = div.querySelector(".carousel-control-prev");
+  let btn2 = div.querySelector(".carousel-control-next");
+
+  divCarousel.id = "float-pokemon";
+  btn1.setAttribute("data-bs-target", "#float-pokemon");
+  btn2.setAttribute("data-bs-target", "#float-pokemon");
+
+  return div.innerHTML;
+}
+// Devuelve un div que es el carousel corregido
+
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
@@ -453,6 +481,9 @@ document.getElementById("search-btn").addEventListener("click", () => {
 document.querySelector(".btn-close").addEventListener("click", () => {
   localStorage.clear();
   document.querySelector(".window-notice").style.display = "none";
+  document
+    .querySelector(".window-notice")
+    .classList.remove("div-local-seleccionado");
 });
 
 cargarPagina();
