@@ -455,7 +455,6 @@ function autoCarousel() {
 // (17)
 function corregirCarousel() {
   let div = document.createElement("div");
-  console.log(localStorage.getItem("carousel"));
   div.innerHTML = localStorage.getItem("carousel");
   let divCarousel = div.querySelector(".carousel-fade");
   let btn1 = div.querySelector(".carousel-control-prev");

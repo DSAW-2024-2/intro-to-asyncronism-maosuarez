@@ -103,7 +103,7 @@ header {
   padding-right: 50px;
   padding-top: 10px;
 
-  background-color: aqua;
+  background-color: rgb(228, 252, 252);
 
   .gif-carga {
     display: flex;
@@ -117,9 +117,12 @@ header {
   }
 
   .card {
+    background-color: rgb(250, 251, 240);
     margin: 10px;
+
     display: flex;
     justify-content: center;
+    border-radius: 35px;
 
     .row {
       display: flex;
@@ -135,6 +138,10 @@ header {
     .col-md-8 {
       display: flex;
       align-items: center;
+    }
+
+    .carousel {
+      border-radius: 30px;
     }
 
     .card-body {
@@ -310,11 +317,15 @@ footer {
 /* Para pantallas pequeñas (móviles grandes) */
 @media only screen and (min-width: 440px) and (max-width: 768px) {
   #container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columnas */
     padding-left: 20px;
     padding-right: 20px;
     .carousel {
       min-width: 150px;
+    }
+    .card {
+      padding-top: 5px;
     }
   }
 }
@@ -327,6 +338,9 @@ footer {
     padding-right: 10px;
     .carousel {
       min-width: 200px;
+    }
+    .card {
+      padding-top: 5px;
     }
   }
 }
