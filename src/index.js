@@ -228,7 +228,6 @@ function crearCarouselImagenes(NoImagenes, indice) {
   let divCarousel = document.createElement("div");
   divCarousel.className = "carousel slide carousel-fade";
   divCarousel.id = "carouselExampleFade-" + indice;
-  divCarousel.style.background = "#bfbfbf";
 
   let carouselInner = document.createElement("div");
   carouselInner.className = "carousel-inner";

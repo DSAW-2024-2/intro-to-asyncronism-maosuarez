@@ -14,7 +14,8 @@
   margin: 0;
   border: none;
 
-  font-family: "Fredericka the Great", "Russo One", "Press Start 2P", cursive;
+  font-family: "Fredericka the Great", "Russo One", "Press Start 2P",
+    "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -141,7 +142,7 @@ header {
   padding-right: 50px;
   padding-top: 10px;
 
-  background-color: rgb(228, 252, 252);
+  background-color: #ffffff;
 
   .gif-carga {
     display: flex;
