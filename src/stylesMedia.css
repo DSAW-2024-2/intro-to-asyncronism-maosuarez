@@ -1,5 +1,14 @@
 /* Para Diferentes tamaños en Computador */
 
+@media only screen and (min-width: 1024px) {
+  header {
+    h1 {
+      font-size: 8rem;
+      margin-bottom: 40px;
+    }
+  }
+}
+
 /* Para pantallas medianas (tablets) */
 @media (max-width: 1024px) {
   #container {

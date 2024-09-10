@@ -14,7 +14,7 @@
   margin: 0;
   border: none;
 
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Fredericka the Great", "Russo One", "Press Start 2P", cursive;
   font-weight: 400;
   font-style: normal;
 }
@@ -90,6 +90,15 @@ header {
       /* Sombra superior */ 0 -4px 0 #003b5c,
       /* Sombra inferior */ 4px 0 0 #003b5c,
       /* Sombra izquierda */ -4px 0 0 #003b5c; /* Sombra derecha */
+  }
+
+  h1:hover {
+    cursor: help;
+    color: #ffcc03; /* Cambio de color a azul brillante */
+    text-shadow: 6px 6px 0 #003b5c, -6px -6px 0 #003b5c, 6px -6px 0 #003b5c,
+      -6px 6px 0 #003b5c, 0 6px 0 #003b5c, 0 -6px 0 #003b5c, 6px 0 0 #003b5c,
+      -6px 0 0 #003b5c; /* Borde más grueso */
+    transform: scale(1.1); /* Aumento de tamaño al pasar el mouse */
   }
 
   .search {
@@ -225,11 +234,28 @@ footer {
   gap: 40px;
 
   button {
-    margin-top: 5px;
-    background-color: #b8dedc;
-    padding: 10px;
-    border: #006d77 solid 1px;
-    border-radius: 15px;
+    background-color: #ffcb05; /* Amarillo Pokémon */
+    border: 2px solid #3d7dca; /* Azul Pokémon */
+    color: #3d7dca; /* Azul Pokémon */
+    padding: 15px 30px; /* Más espaciamiento interno */
+    border-radius: 25px; /* Bordes redondeados más pronunciados */
+    font-size: 18px; /* Tamaño de fuente ajustado */
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center; /* Espacio entre el texto y el emoji */
+  }
+
+  button:hover {
+    background-color: #f8d030; /* Amarillo más oscuro */
+    color: #fff;
+  }
+
+  button:active {
+    background-color: #f4c230; /* Amarillo aún más oscuro */
+    color: #fff;
   }
 }
 

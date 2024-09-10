@@ -1,4 +1,5 @@
 //Link del Json a consultar
+
 let linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
 let listaDatos;
 
@@ -544,6 +545,11 @@ document.querySelector("#btn-guide-next").addEventListener("click", () => {
   let index = localStorage.getItem("index");
   localStorage.setItem("index", Number(index) + 1);
   informativos();
+});
+
+document.querySelector("h1").addEventListener("click", () => {
+  linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
+  cargarPagina();
 });
 
 //primeraVezPagina();
