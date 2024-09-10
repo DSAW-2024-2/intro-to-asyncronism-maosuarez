@@ -59,16 +59,15 @@ async function cicloElementosPokemon() {
 
     let objhabilidades = await consultarApi(listaDatos[i].url);
     let audio = objhabilidades.cries.latest;
-    let habilidades = objhabilidades.abilities;
 
-    let descripcion = obtenerHabilidades(habilidades);
+    let types = objhabilidades.types;
+    let textoTypes = obtenerTypes(types);
 
-    let objImagenes = await consultarApi(objhabilidades.forms[0].url);
-    let carouselimage = crearCarouselImagenes(objImagenes.sprites, i);
+    let carouselimage = crearCarouselImagenes(objhabilidades.sprites, i);
 
     document.getElementById("gif-carga-" + i).style.display = "none";
 
-    modificarElementoPokemon(nombre, carouselimage, audio, descripcion, i);
+    modificarElementoPokemon(nombre, carouselimage, audio, textoTypes, i);
   }
 }
 //No devuelve nada
@@ -208,14 +207,18 @@ function capitalizar(str) {
 //Devuelve String primera en Mayuscula
 
 // (6) Sexta Funcion -> lista con las habilidades
-function obtenerHabilidades(lista) {
-  let texto = "Algunas habilidades:<br/>";
+function obtenerTypes(lista) {
+  let div = document.createElement("div");
 
-  for (let habilidad of lista) {
-    texto += `- ${habilidad.ability.name}<br/>`;
+  for (let type of lista) {
+    let span = document.createElement("span");
+    span.className = "type-" + type.type.name;
+    span.classList.add("type-pokemon");
+    span.textContent = type.type.name;
+    div.appendChild(span);
   }
 
-  return texto;
+  return div.innerHTML;
 }
 //Devuelve String con las habilidades de la lista
 
@@ -231,7 +234,10 @@ function crearCarouselImagenes(NoImagenes, indice) {
 
   let contador = 0;
   for (let srcImagen in NoImagenes) {
-    if (NoImagenes[srcImagen] != null) {
+    if (
+      NoImagenes[srcImagen] != null &&
+      typeof NoImagenes[srcImagen] != "object"
+    ) {
       carouselItem = document.createElement("div");
       if (srcImagen == "front_default") {
         carouselItem.className = "carousel-item active";
@@ -285,7 +291,7 @@ function modificarElementoPokemon(
   nombre,
   carouselimagen,
   audio,
-  descripcion,
+  textoTypes,
   indice
 ) {
   let [objTitulo, objImagen, objAudio, objDescripcion] =
@@ -294,7 +300,7 @@ function modificarElementoPokemon(
   objTitulo.textContent = nombre;
   objImagen.appendChild(carouselimagen);
   objAudio.src = audio;
-  objDescripcion.innerHTML = descripcion;
+  objDescripcion.innerHTML = textoTypes;
 }
 //No devuelve nada
 
