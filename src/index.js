@@ -66,9 +66,23 @@ async function cicloElementosPokemon() {
 
     let carouselimage = crearCarouselImagenes(objhabilidades.sprites, i);
 
+    let idPokemon = objhabilidades.id;
+
+    let species = await consultarApi(objhabilidades.species.url);
+    let colorBackGround = species.color.name;
+
+    colorearCard(i, colorBackGround);
+
     document.getElementById("gif-carga-" + i).style.display = "none";
 
-    modificarElementoPokemon(nombre, carouselimage, audio, textoTypes, i);
+    modificarElementoPokemon(
+      nombre,
+      carouselimage,
+      audio,
+      textoTypes,
+      idPokemon,
+      i
+    );
   }
 }
 //No devuelve nada
@@ -105,6 +119,9 @@ function crearElementosPokemon(indice) {
   let tituloCarta = document.createElement("h5");
   tituloCarta.className = "card-title";
 
+  let id = document.createElement("h7");
+  id.className = "card-id";
+
   let textoCarta_1 = document.createElement("p");
   textoCarta_1.id = "card-text-1";
   textoCarta_1.className = "card-text parrafo";
@@ -116,6 +133,7 @@ function crearElementosPokemon(indice) {
   divLocal.appendChild(divCarga);
 
   divCuerpo.appendChild(tituloCarta);
+  divCuerpo.appendChild(id);
   divCuerpo.appendChild(textoCarta_1);
 
   divCuerpo.appendChild(btnAux);
@@ -292,12 +310,14 @@ function modificarElementoPokemon(
   carouselimagen,
   audio,
   textoTypes,
+  idPokemon,
   indice
 ) {
-  let [objTitulo, objImagen, objAudio, objDescripcion] =
+  let [objTitulo, objPokemon, objImagen, objAudio, objDescripcion] =
     obtenerObjetosHtml(indice);
 
   objTitulo.textContent = nombre;
+  objPokemon.textContent = "#" + idPokemon;
   objImagen.appendChild(carouselimagen);
   objAudio.src = audio;
   objDescripcion.innerHTML = textoTypes;
@@ -310,13 +330,38 @@ function obtenerObjetosHtml(indice) {
   let elementoParticular = elementos[indice];
 
   let objTitulo = elementoParticular.querySelector(".card-title");
+  let objPokemon = elementoParticular.querySelector(".card-id");
   let objImagen = elementoParticular.querySelector(".col-md-4");
   let objAudio = elementoParticular.querySelector(".audio-pokemon");
   let objDescripcion = elementoParticular.querySelector(".parrafo");
 
-  return [objTitulo, objImagen, objAudio, objDescripcion];
+  return [objTitulo, objPokemon, objImagen, objAudio, objDescripcion];
 }
 // Devuelve un array con los objetos html de la carta
+
+function colorearCard(indice, color) {
+  let elementos = document.querySelectorAll(".card");
+  let elementoParticular = elementos[indice];
+
+  elementoParticular.style.backgroundColor = mapColorToHex(color);
+}
+
+// Mapeo de colores a sus códigos hexadecimales más claros y pastel
+function mapColorToHex(color) {
+  const colorMap = {
+    black: "#A9A9A9", // Gris más claro en lugar de negro
+    blue: "#A7C7E7", // Azul pastel
+    brown: "#D2B48C", // Marrón claro
+    gray: "#D3D3D3", // Gris claro
+    green: "#B0E57C", // Verde pastel
+    pink: "#FFB6C1", // Rosa pastel
+    purple: "#C5A3FF", // Púrpura pastel
+    red: "#FF9999", // Rojo pastel
+    white: "#FFFFFF", // Blanco (no cambia)
+    yellow: "#FFECB3", // Amarillo pastel
+  };
+  return colorMap[color] || "#FFFFFF"; // Color por defecto
+}
 
 // (10) decima Funcion -> siguiente pagina
 //-> consultarApi

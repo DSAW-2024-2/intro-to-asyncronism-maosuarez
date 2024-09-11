@@ -76,6 +76,7 @@ header {
   position: sticky;
 
   h1 {
+    margin-top: 10px;
     font-family: "Pokemon Solid";
     font-weight: 400;
     font-style: normal;
@@ -157,9 +158,11 @@ header {
 
   .card {
     background-color: #ffffff;
+
     border: 3px solid #ffcb05;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
+    text-align: center;
 
     display: flex;
     justify-content: center;
@@ -168,6 +171,11 @@ header {
     .row {
       display: flex;
       align-items: center;
+    }
+
+    .card-id {
+      margin: 2px;
+      opacity: 0.5;
     }
 
     .col-first {
