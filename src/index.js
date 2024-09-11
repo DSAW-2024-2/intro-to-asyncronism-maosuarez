@@ -3,9 +3,8 @@
 let linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
 let listaDatos;
 
-//Primera funcion
-//-> LLama a ConsultarApi (2)
-//-> LLama a cicloElementosPokemon (3)
+//-> LLama a ConsultarApi 
+//-> LLama a cicloElementosPokemon 
 async function cargarPagina() {
   let pagina = await consultarApi(linkPrincipal);
 
@@ -30,7 +29,7 @@ async function cargarPagina() {
 }
 //No devuelve nada
 
-// (2) Segunda Funcion -> requiere una url
+// (1) -> requiere una url
 //-> Usa fetch
 async function consultarApi(url) {
   try {
@@ -44,14 +43,13 @@ async function consultarApi(url) {
 }
 //Devuelve un .Json
 
-// (3) Tercera Funcion
 //-> LLama a ConsultarApi
-//-> Llama a busquedaPokemon (12)
-//-> LLama a crearElementosPokemon (4)
-//-> LLamar a capitalizar (5)
-//-> LLamar a obtenerHabilidades (6)
-//-> LLamar a crearCarouselImagenes (7)
-//-> LLamar a modificarElementoPokemon (8)
+//-> Llama a busquedaPokemon 
+//-> LLama a crearElementosPokemon 
+//-> LLamar a capitalizar 
+//-> LLamar a crearCarouselImagenes 
+// -> LLamar a colorearCard
+//-> LLamar a modificarElementoPokemon 
 async function cicloElementosPokemon() {
   listaDatos = await busquedaPokemon(linkPrincipal);
   for (let i = 0; i < listaDatos.length; i++) {
@@ -87,8 +85,14 @@ async function cicloElementosPokemon() {
 }
 //No devuelve nada
 
-// (4) Cuarta Funcion -> Indice de la carta
+//() -> recibe un indice
 //-> Crea objetos en el Document
+//-> Llama a capitalizar
+//-> Llama a datosImportantes
+//-> Llama a consultarApi
+//-> Llama a pantallaFlotante
+//-> Llama a isMobile
+//-> Llama a autoCarousel
 function crearElementosPokemon(indice) {
   let contenido = document.getElementById("container");
 
@@ -222,7 +226,7 @@ function crearElementosPokemon(indice) {
 }
 //No devuelve nada
 
-// (5) Quinta Funcion -> str para capitalizar
+// (1) -> str para capitalizar
 function capitalizar(str) {
   return str.replace(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -230,7 +234,7 @@ function capitalizar(str) {
 }
 //Devuelve String primera en Mayuscula
 
-// (6) Sexta Funcion -> lista con las habilidades
+// (1) -> lista con las habilidades
 function obtenerTypes(lista) {
   let div = document.createElement("div");
 
@@ -246,7 +250,7 @@ function obtenerTypes(lista) {
 }
 //Devuelve String con las habilidades de la lista
 
-// (7) Septima Funcion -> (Objeto que contiene url de las imagenes , indice de las imagenes )
+// (2) -> (Objeto que contiene url de las imagenes , indice de las imagenes )
 function crearCarouselImagenes(NoImagenes, indice) {
   let divCarousel = document.createElement("div");
   divCarousel.className = "carousel slide carousel-fade";
@@ -308,8 +312,8 @@ function crearCarouselImagenes(NoImagenes, indice) {
 }
 // Devuelve un div con el carrousel de imagen
 
-// (8) Octava Funcion -> Informacion en general ( nombre, carrousel, audio, descripcion, indice de la carta)
-//-> obtenerObjetosHtml (9)
+// (6) -> Informacion en general ( nombre, carrousel, audio, descripcion, indice de la carta)
+////-> Llama a obtenerObjetosHtml 
 function modificarElementoPokemon(
   nombre,
   carouselimagen,
@@ -329,7 +333,7 @@ function modificarElementoPokemon(
 }
 //No devuelve nada
 
-// (9) Novena Funcion -> indice de la carta
+// (1) -> indice de la carta
 function obtenerObjetosHtml(indice) {
   let elementos = document.querySelectorAll(".card");
   let elementoParticular = elementos[indice];
@@ -344,13 +348,18 @@ function obtenerObjetosHtml(indice) {
 }
 // Devuelve un array con los objetos html de la carta
 
+// (2) -> (Indice de la card, color que se le aplica en texto)
+//-> Llama a mapColorToHex
 function colorearCard(indice, color) {
   let elementos = document.querySelectorAll(".card");
   let elementoParticular = elementos[indice];
 
   elementoParticular.style.backgroundColor = mapColorToHex(color);
 }
+//No devuelve nada
 
+// (1) -> (color en texto que se le va a aplicar)
+//-> Llama a mapColorToHex
 function colorearCardWindow(color) {
   let elementoParticular = document
     .querySelector(".window-notice")
@@ -358,10 +367,12 @@ function colorearCardWindow(color) {
   elementoParticular.style.backgroundColor = mapColorToHex(color);
 }
 
-// Mapeo de colores a sus códigos hexadecimales más claros y pastel
+// (1) -> Color en texto
+function mapColorToHex(color) {
+
+  // Mapeo de colores a sus códigos hexadecimales más claros y pastel
 // Mapeo de colores a sus códigos hexadecimales para que se asemejen más a los de la imagen
 // Mapeo de colores a sus códigos RGBA para que sean translúcidos
-function mapColorToHex(color) {
   const colorMap = {
     black: "rgba(109, 109, 109, 0.4)", // Negro grisáceo, 80% opaco
     blue: "rgba(118, 189, 254, 0.4)", // Azul claro y brillante, 80% opaco
@@ -376,8 +387,8 @@ function mapColorToHex(color) {
   };
   return colorMap[color] || "rgba(255, 255, 255, 0.4)"; // Color blanco por defecto con transparencia
 }
+//devuelve el codifgo del color
 
-// (10) decima Funcion -> siguiente pagina
 //-> consultarApi
 //-> cargarPagina
 async function siguientePaginaPokemones() {
@@ -387,7 +398,6 @@ async function siguientePaginaPokemones() {
 }
 // No devuelve nada
 
-// (11) onceaba Funcion -> pagina anterior
 //-> consultarApi
 //-> cargarPagina
 async function anteriorPaginaPokemones() {
@@ -397,7 +407,8 @@ async function anteriorPaginaPokemones() {
 }
 // No devuelve nada
 
-// (12) doceaba Funcion -> LinkPrincipal
+// (1) -> LinkPrincipal
+//-> Llama a consultarApi
 async function busquedaPokemon(linkParametro) {
   textoBusqueda = document.getElementById("pokemon-input").value;
   listaPokemonesCrear = [];
@@ -433,8 +444,8 @@ async function busquedaPokemon(linkParametro) {
 }
 // Devuelve un array con los objetos json de los pokemones buscados
 
-// (13) Treceaba Funcion -> link de habilidades del pokemon
-// consultarApi
+// (1) -> link de habilidades del pokemon
+//-> Llama a consultarApi
 async function datosImportantes(linkPokemon) {
   let datos = await consultarApi(linkPokemon);
 
@@ -457,7 +468,9 @@ async function datosImportantes(linkPokemon) {
 }
 // Devuelve un array con los datos importantes del pokemon
 
-//(14) Catorceaba Funcion
+//-> Llama a corregirCarousel
+//-> Llama a colorearCardWindow
+//-> Llama a autocarousel
 function pantallaFlotante() {
   document.querySelector(".window-notice").style.display = "flex";
 
@@ -486,7 +499,6 @@ function pantallaFlotante() {
 }
 //No devuelve nada
 
-//(15) quinceaba FUncion
 function isMobile() {
   return (
     navigator.userAgent.match(/Android/i) ||
@@ -499,7 +511,8 @@ function isMobile() {
 }
 //Devuelve un booleano
 
-// (16) Dieciseisava Funcion
+//-> Llama a isMobile
+//-> Llama a autocarousel
 function autoCarousel() {
   try {
     let divLocal = document.querySelector(".div-local-seleccionado");
@@ -518,8 +531,9 @@ function autoCarousel() {
     console.error("Error basico" + error);
   }
 }
+//No devuelve nada
 
-// (17)
+
 function corregirCarousel() {
   let div = document.createElement("div");
   div.innerHTML = localStorage.getItem("carousel");
@@ -535,7 +549,7 @@ function corregirCarousel() {
 }
 // Devuelve un div que es el carousel corregido
 
-//Add Event Listener
+//Add Event Listeners
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
 });
@@ -562,5 +576,8 @@ window.addEventListener("load", function () {
   var tourModal = new bootstrap.Modal(document.getElementById("tourModal"));
   tourModal.show();
 });
+
+
+
 //primeraVezPagina();
 cargarPagina();
