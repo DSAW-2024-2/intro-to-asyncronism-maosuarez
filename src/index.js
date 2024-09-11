@@ -261,6 +261,7 @@ function crearCarouselImagenes(NoImagenes, indice) {
 
   let contador = 0;
   for (let srcImagen in NoImagenes) {
+    console.log(srcImagen);
     if(srcImagen == "official-artwork"){
       console.log(NoImagenes[srcImagen]["front_default"])
       NoImagenes[srcImagen] = NoImagenes[srcImagen]["front_default"];
