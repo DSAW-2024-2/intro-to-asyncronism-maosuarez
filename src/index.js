@@ -261,12 +261,15 @@ function crearCarouselImagenes(NoImagenes, indice) {
 
   let contador = 0;
   for (let srcImagen in NoImagenes) {
+    if(srcImagen == "official-artwork"){
+      NoImagenes[srcImagen] = NoImagenes[srcImagen]["front_default"];
+    }
     if (
       NoImagenes[srcImagen] != null &&
       typeof NoImagenes[srcImagen] != "object"
     ) {
       carouselItem = document.createElement("div");
-      if (srcImagen == "front_default") {
+      if (srcImagen == "official-artwork") {
         carouselItem.className = "carousel-item active";
       } else {
         carouselItem.className = "carousel-item";
