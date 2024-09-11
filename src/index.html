@@ -31,16 +31,50 @@
       </div>
     </header>
 
-    <div class="first-guide">
-      <div class="instruccion">
-        <div class="text-guide">
-          <h2 class="text-guide-title">Click Aqui Para</h2>
-          <p class="text-guide-info">
-            Para visualizar mas caracteristicas de los pokemones
-          </p>
-        </div>
-        <div class="btn-group">
-          <button id="btn-guide-next">Suiguiente</button>
+    <div
+      class="modal fade"
+      id="tourModal"
+      tabindex="-1"
+      aria-labelledby="tourModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tourModalLabel">
+              Bienvenido a la Pokedex de Mao
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <strong>Haz clic</strong> en los Pokémon para escuchar su sonido.
+            </p>
+            <p>
+              <strong>Haz clic</strong> en el nombre del Pokémon para ver más
+              características.
+            </p>
+            <p>
+              <strong>Doble clic</strong> en el nombre del Pokémon para abrir
+              una ventana emergente con información adicional.
+            </p>
+            <p><strong>Haz clic</strong> en el título para volver al inicio.</p>
+            <p>¡Disfruta de la página!</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              ¡Entendido!
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -53,7 +87,12 @@
       <main class="container-aux">
         <div class="card mb-3" style="max-width: 540px">
           <header>
-            <button type="button" class="btn-close" aria-label="Close"></button>
+            <button
+              type="button"
+              id="btn-close"
+              class="btn-close"
+              aria-label="Close"
+            ></button>
           </header>
           <div class="row g-0">
             <div class="col-md-4 carousel-float"></div>

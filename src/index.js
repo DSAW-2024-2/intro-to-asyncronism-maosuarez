@@ -186,6 +186,11 @@ function crearElementosPokemon(indice) {
         );
         let respuesta = await datosImportantes(i.url);
         localStorage.setItem("texto2", respuesta);
+
+        let data = await consultarApi(i.url);
+        let species = await consultarApi(data.species.url);
+        let colorBackGround = species.color.name;
+        localStorage.setItem("colorFondo", colorBackGround);
       }
     }
     if (
@@ -346,21 +351,30 @@ function colorearCard(indice, color) {
   elementoParticular.style.backgroundColor = mapColorToHex(color);
 }
 
+function colorearCardWindow(color) {
+  let elementoParticular = document
+    .querySelector(".window-notice")
+    .querySelector(".carousel-float");
+  elementoParticular.style.backgroundColor = mapColorToHex(color);
+}
+
 // Mapeo de colores a sus códigos hexadecimales más claros y pastel
+// Mapeo de colores a sus códigos hexadecimales para que se asemejen más a los de la imagen
+// Mapeo de colores a sus códigos RGBA para que sean translúcidos
 function mapColorToHex(color) {
   const colorMap = {
-    black: "#A9A9A9", // Gris más claro en lugar de negro
-    blue: "#A7C7E7", // Azul pastel
-    brown: "#D2B48C", // Marrón claro
-    gray: "#D3D3D3", // Gris claro
-    green: "#B0E57C", // Verde pastel
-    pink: "#FFB6C1", // Rosa pastel
-    purple: "#C5A3FF", // Púrpura pastel
-    red: "#FF9999", // Rojo pastel
-    white: "#FFFFFF", // Blanco (no cambia)
-    yellow: "#FFECB3", // Amarillo pastel
+    black: "rgba(109, 109, 109, 0.4)", // Negro grisáceo, 80% opaco
+    blue: "rgba(118, 189, 254, 0.4)", // Azul claro y brillante, 80% opaco
+    brown: "rgba(214, 124, 84, 0.4)", // Marrón cálido, 80% opaco
+    gray: "rgba(189, 195, 199, 0.4)", // Gris suave, 80% opaco
+    green: "rgba(72, 208, 176, 0.4)", // Verde vibrante, 80% opaco
+    pink: "rgba(247, 120, 180, 0.4)", // Rosa intenso, 80% opaco
+    purple: "rgba(159, 91, 186, 0.4)", // Púrpura vibrante, 80% opaco
+    red: "rgba(251, 108, 108, 0.4)", // Rojo vivo, 80% opaco
+    white: "rgba(255, 255, 255, 0.4)", // Blanco, 80% opaco
+    yellow: "rgba(255, 216, 111, 0.4)", // Amarillo cálido, 80% opaco
   };
-  return colorMap[color] || "#FFFFFF"; // Color por defecto
+  return colorMap[color] || "rgba(255, 255, 255, 0.4)"; // Color blanco por defecto con transparencia
 }
 
 // (10) decima Funcion -> siguiente pagina
@@ -466,6 +480,8 @@ function pantallaFlotante() {
   });
   div.classList.add("div-local-seleccionado");
 
+  colorearCardWindow(localStorage.getItem("colorFondo"));
+
   autoCarousel();
 }
 //No devuelve nada
@@ -519,55 +535,6 @@ function corregirCarousel() {
 }
 // Devuelve un div que es el carousel corregido
 
-function informativos() {
-  let divInfo = document.querySelector(".first-guide");
-  divInfo.style.display = "flex";
-
-  listaAcciones = [
-    {
-      accion: "Click Aqui Para",
-      texto: "Visualizar mas caracteristicas de los pokemones",
-      target: ".card",
-    },
-    {
-      accion: "Click Aqui Para",
-      texto: "Escuchar los ruidos que hacen los pokemones",
-      target: ".col-first",
-    },
-    {
-      accion: "Doble Click Aqui Para",
-      texto: "Desplegar una targeta unica del Pokemon",
-      target: ".card",
-    },
-  ];
-  try {
-    let index = localStorage.getItem("index");
-    let objAccion = listaAcciones[index];
-    console.log(objAccion.accion);
-    divInfo.querySelector(".text-guide-title").textContent = objAccion.accion;
-    divInfo.querySelector(".text-guide-info").textContent = objAccion.texto;
-
-    document.querySelector(objAccion.target).classList.add("mostrar-zindex");
-  } catch (error) {
-    divInfo.style.display = "none";
-    console.error("Error informativos " + error);
-  }
-
-  try {
-    let objAnterior = listaAcciones[index - 1];
-    document
-      .querySelector(objAnterior.target)
-      .classList.remove("mostrar-zindex");
-  } catch (error) {
-    console.error("No hay accion anterior");
-  }
-}
-
-function primeraVezPagina() {
-  localStorage.setItem("index", 0);
-  informativos();
-}
-
 //Add Event Listener
 document.getElementById("pokemon-input").addEventListener("change", () => {
   cargarPagina();
@@ -577,7 +544,7 @@ document.getElementById("search-btn").addEventListener("click", () => {
   cargarPagina();
 });
 
-document.querySelector(".btn-close").addEventListener("click", () => {
+document.querySelector("#btn-close").addEventListener("click", () => {
   localStorage.clear();
   document.querySelector(".window-notice").style.display = "none";
   document
@@ -585,16 +552,15 @@ document.querySelector(".btn-close").addEventListener("click", () => {
     .classList.remove("div-local-seleccionado");
 });
 
-document.querySelector("#btn-guide-next").addEventListener("click", () => {
-  let index = localStorage.getItem("index");
-  localStorage.setItem("index", Number(index) + 1);
-  informativos();
-});
-
 document.querySelector("h1").addEventListener("click", () => {
   linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
   cargarPagina();
 });
 
+// Mostrar el modal automáticamente cuando la página cargue
+window.addEventListener("load", function () {
+  var tourModal = new bootstrap.Modal(document.getElementById("tourModal"));
+  tourModal.show();
+});
 //primeraVezPagina();
 cargarPagina();
