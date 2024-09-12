@@ -3,8 +3,8 @@
 let linkPrincipal = "https://pokeapi.co/api/v2/pokemon";
 let listaDatos;
 
-//-> LLama a ConsultarApi 
-//-> LLama a cicloElementosPokemon 
+//-> LLama a ConsultarApi
+//-> LLama a cicloElementosPokemon
 async function cargarPagina() {
   let pagina = await consultarApi(linkPrincipal);
 
@@ -44,12 +44,12 @@ async function consultarApi(url) {
 //Devuelve un .Json
 
 //-> LLama a ConsultarApi
-//-> Llama a busquedaPokemon 
-//-> LLama a crearElementosPokemon 
-//-> LLamar a capitalizar 
-//-> LLamar a crearCarouselImagenes 
+//-> Llama a busquedaPokemon
+//-> LLama a crearElementosPokemon
+//-> LLamar a capitalizar
+//-> LLamar a crearCarouselImagenes
 // -> LLamar a colorearCard
-//-> LLamar a modificarElementoPokemon 
+//-> LLamar a modificarElementoPokemon
 async function cicloElementosPokemon() {
   listaDatos = await busquedaPokemon(linkPrincipal);
   for (let i = 0; i < listaDatos.length; i++) {
@@ -261,15 +261,10 @@ function crearCarouselImagenes(NoImagenes, indice) {
 
   let contador = 0;
   for (let srcImagen in NoImagenes) {
-<<<<<<< HEAD
     if (srcImagen == "other") {
       NoImagenes[srcImagen] =
         NoImagenes[srcImagen][["official-artwork"]]["front_default"];
     }
-=======
-    console.log(srcImagen);
-    
->>>>>>> 73805b8fe2891984a5e6d4bf630baa211359a29c
     if (
       NoImagenes[srcImagen] != null &&
       typeof NoImagenes[srcImagen] != "object"
@@ -322,7 +317,7 @@ function crearCarouselImagenes(NoImagenes, indice) {
 // Devuelve un div con el carrousel de imagen
 
 // (6) -> Informacion en general ( nombre, carrousel, audio, descripcion, indice de la carta)
-////-> Llama a obtenerObjetosHtml 
+////-> Llama a obtenerObjetosHtml
 function modificarElementoPokemon(
   nombre,
   carouselimagen,
@@ -378,10 +373,9 @@ function colorearCardWindow(color) {
 
 // (1) -> Color en texto
 function mapColorToHex(color) {
-
   // Mapeo de colores a sus códigos hexadecimales más claros y pastel
-// Mapeo de colores a sus códigos hexadecimales para que se asemejen más a los de la imagen
-// Mapeo de colores a sus códigos RGBA para que sean translúcidos
+  // Mapeo de colores a sus códigos hexadecimales para que se asemejen más a los de la imagen
+  // Mapeo de colores a sus códigos RGBA para que sean translúcidos
   const colorMap = {
     black: "rgba(109, 109, 109, 0.4)", // Negro grisáceo, 80% opaco
     blue: "rgba(118, 189, 254, 0.4)", // Azul claro y brillante, 80% opaco
@@ -542,7 +536,6 @@ function autoCarousel() {
 }
 //No devuelve nada
 
-
 function corregirCarousel() {
   let div = document.createElement("div");
   div.innerHTML = localStorage.getItem("carousel");
@@ -585,8 +578,6 @@ window.addEventListener("load", function () {
   var tourModal = new bootstrap.Modal(document.getElementById("tourModal"));
   tourModal.show();
 });
-
-
 
 //primeraVezPagina();
 cargarPagina();
